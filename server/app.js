@@ -88,6 +88,9 @@ app.post('/signup',
     .then((results) => {
       if (!results) {
         models.Users.create(req.body);
+        res.writeHead(301, {
+          'location': '/'
+        });
         res.end();
       } else if (results) {
         res.writeHead(301, {
