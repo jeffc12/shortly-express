@@ -1,16 +1,18 @@
 const models = require('../models');
 const Promise = require('bluebird');
-
-module.exports.createSession = (req, res, next) => {
-	if ( Object.keys(req.cookies).length === 0 ) {
-		req.session = models.Sessions;
-		console.log('value',req);
-		res.cookies['shortlyid'] = {value: '8a864482005bcc8b968f2b18f8f7ea490e577b20'};
-	}
-	next();
-};
+const utils = require('../lib/hashUtils');
 
 /************************************************************/
 // Add additional authentication middleware functions below
 /************************************************************/
 
+module.exports.createSession = (req, res, next) => {
+	req.session = models.Sessions;
+	if ( Object.keys(req.cookies).length === 0 ) {
+		res.cookies['shortlyid'] = {value: utils.createSalt(40)};
+	}
+	req.session.hash = function () {
+		return utils.createSalt(40);
+	}
+	next();
+};

@@ -6,10 +6,14 @@ const Model = require('./model');
 class Sessions extends Model {
   constructor () {
     super('sessions');
+    
   }
-  hash() {
-    return;
-  }
+  // randomNumber() {
+  // 	return 
+  // }
+  // hash() {
+  //   return utils.createSalt(40);
+  // }
 }
 
 module.exports = new Sessions();
