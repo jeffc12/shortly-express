@@ -9,6 +9,6 @@ exports.createSalt = function(length) {
 }
 
 exports.createHashedPassword = function(password, salt) {
-	salt = salt || createSalt(64);
-	return crypto.createHash('sha256').update(password+""+salt).digest('hex');
+	//salt = salt || createSalt(64);
+	return crypto.createHash('sha256').update(password).digest('hex');
 }

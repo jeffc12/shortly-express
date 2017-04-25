@@ -11,6 +11,7 @@ class Users extends Model {
     options.salt = utils.createSalt(64);
     options.password = utils.createHashedPassword(options.password, options.salt);
     return super.create.call(this, options);
+
   }
 }
 

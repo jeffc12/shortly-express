@@ -82,8 +82,6 @@ app.post('/links',
 
 app.post('/signup', 
   (req, res, next) => {
-    var username = req.body.username;
-    var password = req.body.password;
     return models.Users.get({'username': req.body.username})
     .then((results) => {
       if (!results) {
@@ -98,6 +96,37 @@ app.post('/signup',
         });
         res.end();
       }
+    })
+    .catch((err) => {
+      throw err;
+    });
+  });
+
+app.post('/login', 
+  (req, res, next) => {
+    return models.Users.get({'username': req.body.username})
+    .then((results) => {
+      if (results) {
+        return models.Users.get({'password': utils.createHashedPassword(req.body.password), 'username': req.body.username})
+        .then((resu) => {
+          if ( resu ) {
+            res.writeHead(301, {
+              'location': '/'
+            });
+            res.end(); 
+          } else {
+            res.writeHead(301, {
+              'location': '/login'
+            });
+            res.end();
+          }
+        });
+      } else if ( !results ) {
+        res.writeHead(301, {
+          'location': '/login'
+        });
+        res.end();
+      }   
     })
     .catch((err) => {
       throw err;
