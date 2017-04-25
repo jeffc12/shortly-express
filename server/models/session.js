@@ -7,7 +7,9 @@ class Sessions extends Model {
   constructor () {
     super('sessions');
   }
-
+  hash() {
+    return;
+  }
 }
 
 module.exports = new Sessions();

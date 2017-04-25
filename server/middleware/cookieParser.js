@@ -5,7 +5,6 @@ const parseCookies = (req, res, next) => {
   //console.log(arr);
   if ( !req.headers.cookie ) {
     res.cookies = {};
-    //Model.Sessions;
   } else {
     var id = req.headers.cookie.split(';');
     for ( var i = 0; i < id.length; i ++ ) {
